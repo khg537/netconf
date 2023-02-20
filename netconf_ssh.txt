@@ -1,0 +1,56 @@
+#################
+Resonse to Hello
+#################
+<?xml version="1.0" encoding="UTF-8"?>
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<capabilities><capability>urn:ietf:params:netconf:base:1.0</capability></capabilities>
+</hello>]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:candidate:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:confirmed-commit:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:startup:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:url:1.0?scheme=http,ftp,file</capability>
+  </capabilities>
+</hello>
+
+###############
+Get config with xpath
+################
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<get-config>
+<source>
+<startup/>
+</source>
+<filter type="xpath"
+xmlns:me="urn:3gpp:sa5:_3gpp-common-managed-element" xmlns:mg="urn:3gpp:sa5:_3gpp-nr-nrm-gnbcucpfunction" xmlns:ep="urn:3gpp:sa5:_3gpp-nr-nrm-ep"
+select="/me:ManagedElement/mg:GNBCUCPFunction/ep:EP_XnC/attributes/localAddress" />
+</get-config>
+</rpc>]]>]]>
+
+###############
+Get config with subtree
+################
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<get-config>
+<source>
+<startup/>
+</source>
+<filter type="subtree">
+<ManagedElement xmlns="urn:3gpp:sa5:_3gpp-common-managed-element">
+<NtfSubscriptionControl xmlns="urn:3gpp:sa5:_3gpp-common-subscription-control"/>
+</ManagedElement>
+</filter>
+</get-config>
+</rpc>]]>]]>
+
+
+
+
