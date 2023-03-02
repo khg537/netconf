@@ -1,56 +1,76 @@
-#################
-Resonse to Hello
-#################
+Response to Hello
+==================================
 <?xml version="1.0" encoding="UTF-8"?>
 <hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
 <capabilities><capability>urn:ietf:params:netconf:base:1.0</capability></capabilities>
 </hello>]]>]]>
+=================================================
+예제 1============================================
+================================================
 
-<?xml version="1.0" encoding="UTF-8"?>
-<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-  <capabilities>
-    <capability>urn:ietf:params:netconf:base:1.0</capability>
-    <capability>urn:ietf:params:netconf:capability:candidate:1.0</capability>
-    <capability>urn:ietf:params:netconf:capability:confirmed-commit:1.0</capability>
-    <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
-    <capability>urn:ietf:params:netconf:capability:startup:1.0</capability>
-    <capability>urn:ietf:params:netconf:capability:url:1.0?scheme=http,ftp,file</capability>
-  </capabilities>
-</hello>
-
-###############
-Get config with xpath
-################
 <?xml version="1.0" encoding="UTF-8"?>
 <rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
 <get-config>
 <source>
-<startup/>
+<candidate/>
 </source>
 <filter type="xpath"
-xmlns:me="urn:3gpp:sa5:_3gpp-common-managed-element" xmlns:mg="urn:3gpp:sa5:_3gpp-nr-nrm-gnbcucpfunction" xmlns:ep="urn:3gpp:sa5:_3gpp-nr-nrm-ep"
-select="/me:ManagedElement/mg:GNBCUCPFunction/ep:EP_XnC/attributes/localAddress" />
+xmlns:me="urn:3gpp:sa5:_3gpp-common-managed-element"
+select="/me:ManagedElement[id=2]/attributes/priorityLabel" />
 </get-config>
 </rpc>]]>]]>
 
-###############
-Get config with subtree
-################
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<edit-config>
+<target><candidate/></target>
+<default-operation>merge</default-operation>
+<config>
+  <ManagedElement xmlns="urn:3gpp:sa5:_3gpp-common-managed-element">
+    <id>2</id>
+    <attributes>
+      <priorityLabel>11</priorityLabel>
+    </attributes>
+  </ManagedElement>
+</config>
+</edit-config>
+</rpc>]]>]]>
 
+=================================================
+예제 2============================================
+================================================
 <?xml version="1.0" encoding="UTF-8"?>
 <rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
 <get-config>
 <source>
-<startup/>
+<candidate/>
 </source>
-<filter type="subtree">
-<ManagedElement xmlns="urn:3gpp:sa5:_3gpp-common-managed-element">
-<NtfSubscriptionControl xmlns="urn:3gpp:sa5:_3gpp-common-subscription-control"/>
-</ManagedElement>
-</filter>
+<filter type="xpath"
+xmlns:me="urn:3gpp:sa5:_3gpp-common-managed-element" xmlns:hb="urn:3gpp:sa5:_3gpp-common-subscription-control"
+select="/me:ManagedElement/hb:NtfSubscriptionControl/HeartbeatControl/attributes/heartbeatNtfPeriod" />
 </get-config>
 </rpc>]]>]]>
 
 
-
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="101" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<edit-config>
+<target><candidate/></target>
+<default-operation>merge</default-operation>
+<config>
+<ManagedElement xmlns="urn:3gpp:sa5:_3gpp-common-managed-element">
+  <id>1</id>
+  <NtfSubscriptionControl xmlns="urn:3gpp:sa5:_3gpp-common-subscription-control">
+    <id>1</id>
+    <HeartbeatControl>
+    <id>1</id>
+      <attributes>
+        <heartbeatNtfPeriod>25</heartbeatNtfPeriod>
+      </attributes>
+    </HeartbeatControl>
+  </NtfSubscriptionControl>
+</ManagedElement>
+</config>
+</edit-config>
+</rpc>]]>]]>
 
