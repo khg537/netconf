@@ -1,0 +1,13 @@
+1. merge_hostkey.sh 실행 안될때
+: su -c 'command -v sysrepocfg' -l $USER 를 실행시켜서 아웃풋이 하나만 나오게 한다.
+
+2. host key algorithm erro 발생시
+Install libssh 0.8.6
+wget https://git.libssh.org/projects/libssh.git/snapshot/libssh-0.8.6.tar.gz
+tar -xf libssh-0.8.6.tar.gz
+rm libssh-0.8.6.tar.gz
+cd libssh-0.8.6
+mkdir build && cd build
+cmake ..
+make
+sudo make install
