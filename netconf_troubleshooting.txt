@@ -11,3 +11,9 @@ mkdir build && cd build
 cmake ..
 make
 sudo make install
+
+sysrepo 삭제
+make uninstall
+find / -name "libsysrepo*" -exec rm {} \;
+find / -name "sysrepo.so*" -exec rm {} \;
+cp /usr/local/lib64/libsysrepo* /usr/lib64/
